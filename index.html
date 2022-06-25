@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Acme Camera Landing page">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://use.fontawesome.com/477c542ecf.js"></script>
+    <title>Acme Camera Landing Page</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="cont">
+            <a href="index.html" class="brand link">Brand</a>
+        <button class="btn" onclick="toggle()">
+            <i class="fa fa-bars"></i>
+        </button>
+        </div>
+        <!-- <a href="" class="brand link">Brand</a>
+        <button class="btn" onclick="">
+            <i class="fa fa-bars"></i>
+        </button> -->
+        <ul id="toggle-menu" class="menu">
+            <a href="#why-us" class="link">link</a>
+            <a href="#what-you-get" class="link">link</a>
+            <a href="#call-to-action" class="link">link</a>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <img  id="hero-pic" src="photos\hero.jpeg" alt="">
+        <h2 class="hero-heading heading"><span class="bold">Acme Premium Cameras</span> <br>
+            Capture Your Moments Today
+        </h2>
+    </div>
+
+    <div class="container">
+        <section id="why-us">
+            <div class="card">
+                <h4 class="card-title">Unrivaled Quality</h4>
+                <img src="photos\card-img-2.jpg" class="card-pic" alt="">
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sequi? Rerum numquam quo quasi nam.</p>
+            </div>
+            <div class="card">
+                <h4 class="card-title">4k Clarity</h4>
+                <img src="photos\card-img-1.jpeg" class="card-pic" alt="">
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sequi? Rerum numquam quo quasi nam.</p>
+            </div>
+            <div class="card">
+                <h4 class="card-title">Pinpoint Accuracy</h4>
+                <img src="photos\card-img-3.jpeg" class="card-pic" alt="">
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sequi? Rerum numquam quo quasi nam.</p>
+            </div>
+        </section>
+        
+        <section id="what-you-get">
+            <div class="c2">
+                <div class="split">
+                    <div class="included">
+                        <h2 class="heading-split"><span>What's Included?</span></h2>
+                        <ul class="parts">
+                            <li class="item"> Stainless Steel Body</li>
+                            <li class="item"> Five unique 4k lenses </li>
+                            <li class="item"> Itailina Leather Case</li>
+                            <li class="item"> Full Lifetime Warrenty</li>
+                        </ul>
+                    </div>
+    
+                    <img class="split-img" src="photos\what-do-i-get-img.jpeg"alt="">
+                </div>
+            </div>
+        </section>
+
+        <section id="convincing">
+            <div class="split">
+                <img class="split-img" src="photos\convincing-img.jpeg"alt="">
+                <div class="included">
+                    <h2 class="heading-split">Still Not Sure?</h2>
+                    <ul class="parts">
+                        <li class="item"> Satisfaction Garuentee</li>
+                        <li class="item"> 60 Day Refund Policy </li>
+                        <li class="item"> 24 Hour Tech Support</li>
+                        <li class="item"> Full Lifetime Warrenty</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="call-to-action">
+            <div class="join">
+                <h2 class="call-heading">Join The Rapidly growing community of <br/>
+                    over 2000 Acme Photographers</h2>
+                <form id="emailForm" action="" method="" class="action">
+                    <!-- <label for="email">Enter You're email</label> -->
+                    <input  type="email" name="email" class="email-input" placeholder="email">
+                    <button type="submit" class="email-submit"> Sign me Up!</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p class="footer-text">Acme Cameras</p>
+        <p class="footer-text secondary">All Rights Reserved</p>
+    </footer>
+
+
+
+
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+    <script src="index.js"></script>
+    
+  
+        <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
+        <script type="module">
+          import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js'
+      
+          // Add Firebase products that you want to use
+          import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
+
+          const firebaseConfig = {
+            apiKey: "AIzaSyB2UjtVK3IJ4_ZpEgMn28utm0TuAyUExeY",
+            authDomain: "acme-landing-page.firebaseapp.com",
+            projectId: "acme-landing-page",
+            storageBucket: "acme-landing-page.appspot.com",
+            messagingSenderId: "823176849656",
+            appId: "1:823176849656:web:12e36942bcd7e88c28b30d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        emailForm.addEventListener('submit', (e) =>{
+            e.preventDefault();
+            const emailValue = emailForm['email'].value;
+            console.log(emailValue);
+            const docRef = addDoc(collection(db, "user-info"), {
+                email:  emailValue
+            })
+            .then( (e) =>{
+                // console.log(emailValue);
+                document.getElementById('emailForm').reset();
+
+            })
+        })
+    </script>
+    <script src="init-firebase.js"></script>
+
+      
+    
+</body>
+</html>
